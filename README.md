@@ -11,7 +11,7 @@ Everyone else builds their service, DTOs and controller on top of it.
 
 1. Clone the repo (or unzip the folder).
 2. Eclipse: **File → Import → Maven → Existing Maven Projects** → Browse to the
-   `restaurant-reservation` folder → Finish.
+   `Project-restaurant` folder → Finish.
    Eclipse now downloads Spring and the other libraries. The first time takes a few
    minutes (watch the progress bar at the bottom right).
 3. Open `src/main/java/com/restaurant/reservation/RestaurantReservationApplication.java`
