@@ -1,0 +1,19 @@
+# Optional: starts a PostgreSQL database that matches application-postgres.properties.
+# Needs Docker Desktop installed. Start it with:   docker compose up -d
+# Stop it with:                                   docker compose down
+# (If you installed PostgreSQL directly instead, create a database "restaurant"
+#  and a user "restaurant" with password "restaurant".)
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: restaurant
+      POSTGRES_USER: restaurant
+      POSTGRES_PASSWORD: restaurant
+    ports:
+      - "5432:5432"
+    volumes:
+      - restaurant-data:/var/lib/postgresql/data   # keeps data when the container restarts
+
+volumes:
+  restaurant-data:

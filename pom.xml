@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  pom.xml = the Maven build file. It tells Maven (and Eclipse):
+    - which version of Spring Boot we use (the <parent>)
+    - which libraries to download (the <dependencies>)
+  Eclipse downloads everything listed here automatically when you import
+  the project, so nobody has to install Spring or database drivers by hand.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Inheriting from Spring Boot's parent picks compatible versions of every library for us -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.restaurant</groupId>
+    <artifactId>restaurant-reservation</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>restaurant-reservation</name>
+    <description>Restaurant Reservation and Queue Management System - CSC 481 group project</description>
+
+    <properties>
+        <!-- Everyone needs Java 17 or newer -->
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- Web: runs the server and lets controllers receive requests from the React UI -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+
+        <!-- JPA: turns our entity classes into database tables and powers the repositories -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Validation: lets DTOs use checks like @NotBlank and @Min -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- PostgreSQL driver: used when running with the "postgres" profile -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- H2: a small database that runs INSIDE the app. Default for development
+             and tests, so nobody needs PostgreSQL installed to start coding. -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Testing: JUnit 5 + Spring test support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Lets you run the app with "mvn spring-boot:run" and build a runnable jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
