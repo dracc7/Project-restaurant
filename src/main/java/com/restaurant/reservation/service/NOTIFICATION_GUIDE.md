@@ -96,4 +96,4 @@ Both methods return notification DTOs ordered from newest to oldest.
 - NotificationService handles creation, persistence, and conversion to NotificationDTO.
 - In the current version, notifications are stored as in-app notifications; no external email or SMS messages are sent.
 - Notification creation should occur only after the associated event has successfully completed.
-- If a new notification type is needed, you can add it to the NotificationType enum for use when creating notification through the NotificationService.
+- If a new notification type is needed, you can add it to the NotificationType enum for use when creating notifications through the NotificationService.
