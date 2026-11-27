@@ -7,6 +7,8 @@ import com.restaurant.reservation.dto.ReservationRequest;
 import com.restaurant.reservation.model.Reservation;
 import com.restaurant.reservation.model.RestaurantRules;
 import com.restaurant.reservation.repository.ReservationRepository;
+import com.restaurant.reservation.repository.TableRepository;
+import org.springframework.transaction.annotation.Transactional;
 import com.restaurant.reservation.util.ConfirmationCodeGenerator;
 import com.restaurant.reservation.model.Customer;
 
@@ -15,10 +17,12 @@ import com.restaurant.reservation.model.Customer;
 public class ReservationService {
 
 	private final ReservationRepository reservations;
+	private final TableRepository tables;
 	
-	public ReservationService(ReservationRepository reservations) {
+	public ReservationService(ReservationRepository reservations, TableRepository tables) {
 		
 		this.reservations = reservations;
+		this.tables = tables;
 	}
 	
 	public Reservation book(ReservationRequest request) {
@@ -44,6 +48,7 @@ public class ReservationService {
 		
 	}
 	
+	@Transactional
 	public Reservation modify(String confirmationCode, ReservationRequest request) {
 		
 		Reservation reservation = findByConfirmationCode(confirmationCode)
@@ -53,7 +58,9 @@ public class ReservationService {
 					throw new RuntimeException("No table assigned to reservation");
 				}
 				
-				Long tableId = reservation.getAssignedTable().getId();
+				var table = tables.findLockedByTableNumber(reservation.getAssignedTable().getTableNumber())
+						.orElseThrow(() -> new IllegalStateException("Assigned table not found"));
+				Long tableId = table.getId();
 				
 				LocalDateTime newEndTime= request.startTime().plus(RestaurantRules.RESERVATION_LENGTH);
 				

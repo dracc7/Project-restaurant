@@ -1,0 +1,156 @@
+:root {
+    color-scheme: light;
+    font: 16px/1.5 "Segoe UI", system-ui, sans-serif;
+    color: #172e27;
+    background: #f5f6f1;
+    --line: #dce4dc;
+    --green: #1c5b48;
+    --muted: #52625a;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body { margin: 0; }
+
+.topbar {
+    background: #193b31;
+    color: #fff;
+    font-weight: 650;
+}
+
+.topbar div {
+    max-width: 1240px;
+    margin: auto;
+    padding: 16px clamp(16px, 4vw, 48px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 16px;
+}
+
+.topbar span { color: #d5e7dc; font-size: .875rem; font-weight: 500; }
+
+main {
+    max-width: 1240px;
+    margin: auto;
+    padding: 32px clamp(16px, 4vw, 48px) 48px;
+}
+
+h1, h2, h3, p { margin: 0; }
+h1 { margin-bottom: 24px; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.04em; }
+h2 { font-size: 1.375rem; letter-spacing: -.025em; }
+h3 { font-size: 1.0625rem; }
+
+.dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.section-heading, .card-heading, .booking-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.panel {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    padding: 16px;
+}
+
+.reservation { padding: 20px; }
+.reservation h2 { margin-bottom: 14px; }
+
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 12px;
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+}
+
+.muted { color: var(--muted); font-size: .875rem; }
+.table-card p { margin: 6px 0 12px; }
+.table-card select { width: 100%; }
+
+.table-controls, .control-row, .booking-actions { display: flex; gap: 8px; }
+.table-controls, .booking-actions { flex-wrap: wrap; }
+
+input, select, button {
+    border-radius: 7px;
+    border: 1px solid #b8c6bb;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+    font-size: .9rem;
+    min-height: 40px;
+    padding: 6px 9px;
+}
+
+button {
+    border-color: var(--green);
+    background: var(--green);
+    color: #fff;
+    font-weight: 600;
+    padding-inline: 12px;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) { background: #164637; }
+button.secondary { border-color: #b8c6bb; background: #fff; color: #234e40; }
+button.secondary:hover:not(:disabled) { background: #eaf3ec; }
+button:disabled, select:disabled { opacity: .65; cursor: default; }
+:focus-visible { outline: 2px solid #2d7a65; outline-offset: 2px; }
+
+form > label { display: block; margin-bottom: 5px; font-size: .875rem; font-weight: 600; }
+.control-row > :first-child { flex: 1; min-width: 0; }
+#confirmation-code { text-transform: uppercase; }
+
+.badge {
+    display: inline-block;
+    background: #eef0ed;
+    color: #35453e;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+}
+
+.badge[data-status="READY"], .badge[data-status="COMPLETED"] { background: #dcefe3; color: #21553a; }
+.badge[data-status="RESERVED"], .badge[data-status="BOOKED"] { background: #f7ebcc; color: #654a16; }
+.badge[data-status="SEATED"] { background: #dfe9fa; color: #244981; }
+.badge[data-status="NO_SHOW"] { background: #f8e4de; color: #822c1c; }
+
+[role="status"]:not(:empty) { margin-top: 8px; font-size: .875rem; }
+[role="status"][data-error="true"] { color: #9c2f1e; }
+
+#reservation-details { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+#customer-name { overflow-wrap: anywhere; }
+dl { display: grid; gap: 8px; margin: 12px 0; }
+dl div { display: flex; justify-content: space-between; gap: 8px; }
+dt { color: var(--muted); }
+dd { margin: 0; text-align: right; }
+dt, dd { font-size: .875rem; }
+.booking-actions:not(:empty) { margin-top: 12px; }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+    .dashboard { grid-template-columns: minmax(0, 1fr); }
+}
