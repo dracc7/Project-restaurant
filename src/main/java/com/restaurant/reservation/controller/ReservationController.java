@@ -1,6 +1,8 @@
 package com.restaurant.reservation.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import com.restaurant.reservation.dto.ReservationRequest;
 import com.restaurant.reservation.dto.ReservationResponse;
 import com.restaurant.reservation.service.ReservationService;
@@ -30,7 +32,7 @@ public class ReservationController {
 		 
 		 return service.findByConfirmationCode(confirmationCode)
 				 .map(ReservationResponse::from)
-				 .orElseThrow(()-> new RuntimeException("Reservation not found"));
+				 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
 	 }
 	 
 	 @PutMapping("/{confirmationCode}")

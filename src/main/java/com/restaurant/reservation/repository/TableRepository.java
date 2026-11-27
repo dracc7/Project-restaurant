@@ -2,7 +2,9 @@ package com.restaurant.reservation.repository;
 
 import com.restaurant.reservation.model.DiningTable;
 import com.restaurant.reservation.model.TableStatus;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,9 @@ public interface TableRepository extends JpaRepository<DiningTable, Long> {
 
     /** Look up by the number staff see on the floor. */
     Optional<DiningTable> findByTableNumber(int tableNumber);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Optional<DiningTable> findLockedByTableNumber(int tableNumber);
 
     /** Is this table number already used? (Check before a manager adds a table.) */
     boolean existsByTableNumber(int tableNumber);

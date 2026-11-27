@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dining Room | Restaurant Reservations</title>
+    <link rel="stylesheet" href="staff.css">
+    <script src="staff.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <div>Restaurant Reservations <span>Staff dashboard</span></div>
+    </header>
+
+    <main>
+        <h1>Dining room</h1>
+        <div class="dashboard">
+            <section class="floor" aria-labelledby="tables-heading">
+                <div class="section-heading">
+                    <h2 id="tables-heading">Tables</h2>
+                    <div class="table-controls">
+                        <label>
+                            <span class="sr-only">Filter tables by status</span>
+                            <select id="table-filter">
+                                <option value="">All statuses</option>
+                                <option value="READY">Ready</option>
+                                <option value="RESERVED">Reserved</option>
+                                <option value="SEATED">Seated</option>
+                                <option value="UNAVAILABLE">Unavailable</option>
+                            </select>
+                        </label>
+                        <button id="refresh-tables" type="button" class="secondary">Refresh</button>
+                    </div>
+                </div>
+                <p id="table-summary" class="muted" aria-live="polite"></p>
+                <p id="table-message" role="status">Loading tables…</p>
+                <ul id="table-list" class="table-grid" aria-label="Dining tables"></ul>
+            </section>
+
+            <section class="reservation panel" aria-labelledby="reservation-heading">
+                <h2 id="reservation-heading">Reservation</h2>
+                <form id="lookup-form">
+                    <label for="confirmation-code">Confirmation code</label>
+                    <div class="control-row">
+                        <input id="confirmation-code" name="confirmationCode" required autocomplete="off">
+                        <button type="submit">Find</button>
+                    </div>
+                </form>
+                <p id="reservation-message" role="status"></p>
+                <div id="reservation-details" hidden>
+                    <div class="booking-heading">
+                        <h3 id="customer-name"></h3>
+                        <span id="reservation-status" class="badge"></span>
+                    </div>
+                    <dl>
+                        <div><dt>Time</dt><dd id="reservation-time"></dd></div>
+                        <div><dt>Party</dt><dd id="party-size"></dd></div>
+                        <div><dt>Seating preference</dt><dd id="seating-preference"></dd></div>
+                        <div><dt>Assigned table</dt><dd id="assigned-table"></dd></div>
+                    </dl>
+                    <form id="assignment-form" hidden>
+                        <label for="available-table">Available tables</label>
+                        <div class="control-row">
+                            <select id="available-table" required></select>
+                            <button id="assign-button" type="submit">Assign</button>
+                        </div>
+                    </form>
+                    <div class="booking-actions">
+                        <button type="button" id="seat-button" hidden>Seat party</button>
+                        <button type="button" id="complete-button" hidden>Complete visit</button>
+                        <button type="button" id="no-show-button" class="secondary" hidden>Mark no-show</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <template id="table-card">
+        <li class="panel table-card">
+            <div class="card-heading">
+                <h3></h3>
+                <span class="badge"></span>
+            </div>
+            <p class="muted"></p>
+            <label>
+                <span class="sr-only"></span>
+                <select>
+                    <option value="READY">Ready</option>
+                    <option value="RESERVED">Reserved</option>
+                    <option value="SEATED">Seated</option>
+                    <option value="UNAVAILABLE">Unavailable</option>
+                </select>
+            </label>
+        </li>
+    </template>
+</body>
+</html>
